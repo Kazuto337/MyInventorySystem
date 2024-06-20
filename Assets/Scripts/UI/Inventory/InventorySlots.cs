@@ -5,17 +5,45 @@ using UnityEngine.EventSystems;
 
 public class InventorySlots : MonoBehaviour, IDropHandler
 {
+    InventoryItemBehaviour currentItems;
+
+    public InventoryItemBehaviour CurrentItems { get => currentItems;}
+
+    private void Start()
+    {
+        currentItems = GetComponentInChildren<InventoryItemBehaviour>();
+    }
     public void OnDrop(PointerEventData eventData)
     {
-        if (transform.childCount > 0)
+        InventoryItemBehaviour droppedItem = eventData.pointerDrag.GetComponent<InventoryItemBehaviour>();
+
+        if (currentItems == null || ( droppedItem.ItemData == currentItems.ItemData && !currentItems.ItemMaxed && (droppedItem.ItemsAmount + currentItems.ItemsAmount) < 5))
         {
-            Debug.LogWarning("Slot full: " + gameObject.name);
+            Debug.LogWarning("Item Succesfully Placed On " + gameObject.name);
+
+            AddItem(droppedItem);
             return;
         }
 
-        Debug.LogWarning("Item Succesfully Placed On " + gameObject.name);
+        Debug.LogWarning("Slot full: " + gameObject.name);
+        return;
+    }
 
-        InvetoryItemBehaviour droppedItem = eventData.pointerDrag.GetComponent<InvetoryItemBehaviour>();
-        droppedItem.OnItemDropped(gameObject.transform);
+    public void RemoveCurrentItem()
+    {
+        currentItems = null;
+    }
+
+    public void AddItem(InventoryItemBehaviour newItem)
+    {
+        if (currentItems == null)
+        {
+            newItem.OnItemDropped(gameObject.transform);
+            currentItems = newItem;
+            return;
+        }
+
+        currentItems.AddItem(newItem.ItemsAmount);
+        Destroy(newItem.gameObject);
     }
 }
