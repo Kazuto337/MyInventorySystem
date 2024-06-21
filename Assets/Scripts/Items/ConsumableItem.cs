@@ -36,6 +36,8 @@ public class ConsumableItem : InventoryItemBehaviour
     }
     public void RefreshAmount()
     {
+        itemMaxed = itemsAmount == 5;
+
         countTextBox.text = itemsAmount.ToString();
         bool textBoxActiveState = itemsAmount > 1;
         countTextBox.gameObject.SetActive(textBoxActiveState);

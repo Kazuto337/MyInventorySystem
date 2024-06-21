@@ -25,6 +25,10 @@ public class ShopItem : MonoBehaviour
         {
             icon.sprite = item.ItemData.IconSprite;
         }
+        else
+        {
+            icon.enabled = false;
+        }
 
         if (item is ConsumableItem)
         {
@@ -39,11 +43,24 @@ public class ShopItem : MonoBehaviour
 
     public void RefreshAmount()
     {
+        if (item == null)
+        {
+            text.gameObject.SetActive(false);
+        }
+
         if ((item is ConsumableItem) == false)
         {
             return;
         }
 
+        if ((item as ConsumableItem).ItemsAmount <= 0)
+        {
+            item = null;
+            icon.enabled = false;
+            text.gameObject.SetActive(false);
+
+            return;
+        }
         text.text = (item as ConsumableItem).ItemsAmount.ToString();
         bool textBoxActiveState = (item as ConsumableItem).ItemsAmount > 1;
         text.gameObject.SetActive(textBoxActiveState);
@@ -93,10 +110,13 @@ public class ShopItem : MonoBehaviour
         gm.Player.OnCoinsAdded.Invoke(item.ItemData.Price);
         gm.Player.Inventory.RemoveItem(item);
 
-        icon.enabled = false;
-        item = null;
-        shopManager.RefreshShopInventory();
+        if (item is EquippableItem)
+        {
+            item = null;
+            icon.enabled = false;
+        }
 
+        shopManager.RefreshShopInventory();
         RefreshAmount();
     }
 
@@ -109,11 +129,12 @@ public class ShopItem : MonoBehaviour
             icon.enabled = false;
             item = null;
 
+            text.gameObject.SetActive(false);
             return;
         }
 
-        icon.sprite = newItem.ItemData.IconSprite;
         icon.enabled = true;
+        icon.sprite = newItem.ItemData.IconSprite;
 
         RefreshAmount();
     }

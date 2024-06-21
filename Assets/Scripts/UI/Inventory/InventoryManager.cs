@@ -83,7 +83,7 @@ public class InventoryManager : MonoBehaviour
         {
             if (slot.CurrentItems == item)
             {
-
+                (item as ConsumableItem).RemoveItem();
                 break;
             }
         }

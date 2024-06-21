@@ -39,7 +39,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                 return;
             }
 
-            if ((droppedItem as ConsumableItem).ItemsAmount + (currentItems as ConsumableItem).ItemsAmount < 5)
+            if ((droppedItem as ConsumableItem).ItemsAmount + (currentItems as ConsumableItem).ItemsAmount <= 5)
             {
                 Debug.LogWarning("Item Succesfully Placed On " + gameObject.name);
 

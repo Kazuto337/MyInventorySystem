@@ -23,6 +23,7 @@ public class ShopManager : MonoBehaviour
     {
         RefreshShopInventory();        
     }
+
     [ContextMenu("RefreshShopInventory")]
     public void RefreshShopInventory()
     {
@@ -33,6 +34,5 @@ public class ShopManager : MonoBehaviour
             inventorySlots[i].SetItem(currentInventory[i].CurrentItems);
             inventorySlots[i].isBuyable = false;
         }
-
     }
 }
