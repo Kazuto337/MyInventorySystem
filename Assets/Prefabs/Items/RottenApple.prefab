@@ -145,9 +145,9 @@ GameObject:
   - component: {fileID: 2384145586953265454}
   - component: {fileID: 4683444773237498413}
   - component: {fileID: 73007306935254429}
-  - component: {fileID: 8406552050108251262}
+  - component: {fileID: 8270720159486000762}
   m_Layer: 5
-  m_Name: Pretzel
+  m_Name: RottenApple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8406552050108251262
+--- !u!114 &8270720159486000762
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -220,12 +220,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7432791216001177113}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1115d03d84d955d42b92e69aaad27dcf, type: 3}
+  m_Script: {fileID: 11500000, guid: a6daa8e5e93911c4e93c5ed1678f34e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: b1080a757f1972b48962ad3f40ce1953, type: 2}
+  itemData: {fileID: 11400000, guid: d94d380184eae264aa2385ba03a7111a, type: 2}
   canDrag: 1
   parentBeforeDrag: {fileID: 0}
-  value: 5
+  value: 0
   itemsAmount: 1
   countTextBox: {fileID: 699895030562527253}

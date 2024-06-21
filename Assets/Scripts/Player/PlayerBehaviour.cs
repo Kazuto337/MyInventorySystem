@@ -10,8 +10,8 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField] UnityEvent<int> onCoinsAdded, onCoinsRemoved;
     [SerializeField] UnityEvent onInventoryOpened;
 
-    float healthPoints;
-    int coins;
+    [SerializeField] float healthPoints;
+    [SerializeField] int coins;
 
     [SerializeField] InventoryManager inventoryManager;
 
@@ -32,11 +32,6 @@ public class PlayerBehaviour : MonoBehaviour
 
         onCoinsAdded.AddListener(AddCoins);
         onCoinsRemoved.AddListener(RemoveCoins);
-    }
-
-    private void Update()
-    {
-    
     }
 
     [ContextMenu("Test Inventory")]

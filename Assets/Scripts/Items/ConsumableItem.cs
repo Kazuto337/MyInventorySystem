@@ -14,9 +14,8 @@ public class ConsumableItem : InventoryItemBehaviour
     public bool ItemMaxed { get => itemMaxed; }
     public int ItemsAmount { get => itemsAmount; }
 
-    private void Start()
+    private void Awake()
     {
-        itemsAmount = 1;
         RefreshAmount();
     }
     public void AddItem(int newAmount)

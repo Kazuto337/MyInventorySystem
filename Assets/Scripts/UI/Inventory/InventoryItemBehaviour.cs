@@ -10,16 +10,16 @@ public class InventoryItemBehaviour : MonoBehaviour, IBeginDragHandler, IDragHan
 
     [SerializeField] protected MenuItem itemData;
     [SerializeField] bool canDrag;
-    protected Transform parentBeforeDrag;
+    [SerializeField] protected Transform parentBeforeDrag;
 
     public MenuItem ItemData { get => itemData; }
 
-    private void Awake()
+    private void Start()
     {
         icon = GetComponent<Image>();
         icon.sprite = itemData.IconSprite;
 
-        if (transform.parent.TryGetComponent<InventorySlot>(out InventorySlot slot))
+        if (transform.parent.TryGetComponent(out InventorySlot slot))
         {
             parentBeforeDrag = transform.parent;
         }
@@ -66,6 +66,13 @@ public class InventoryItemBehaviour : MonoBehaviour, IBeginDragHandler, IDragHan
     }
     public virtual void OnItemDropped(Transform newParent)
     {
+        if (parentBeforeDrag == null)
+        {
+            parentBeforeDrag = newParent;
+            transform.SetParent(parentBeforeDrag, false);
+
+            return;
+        }
         if (newParent != parentBeforeDrag)
         {
             parentBeforeDrag.GetComponent<InventorySlot>().DeleteCurrentItem();

@@ -19,7 +19,7 @@ public class UI_Manager : MonoBehaviour
         isShopOpen = false;
 
         inventoryView.SetActive(isInventoryOpen);
-        inventoryView.SetActive(isShopOpen);
+        shopView.SetActive(isShopOpen);
     }
     
     public void ToggleInventory()

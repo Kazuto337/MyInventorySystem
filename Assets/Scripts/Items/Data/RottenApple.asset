@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b084b9ccd103564180f62f85b2c7d00, type: 3}
-  m_Name: Hat
+  m_Name: RottenApple
   m_EditorClassIdentifier: 
-  iconSprite: {fileID: -1762270246, guid: eef7ddb7713de19428d27179cb0810a2, type: 3}
-  price: 5
+  iconSprite: {fileID: 21300000, guid: 8fa37c2c8b9bd654c96a4fae10f387a1, type: 3}
+  price: 1

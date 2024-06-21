@@ -19,6 +19,13 @@ public class EquippableItem : InventoryItemBehaviour
 
     public override void OnItemDropped(Transform newParent)
     {
+        if (parentBeforeDrag == null)
+        {
+            parentBeforeDrag = newParent;
+            transform.SetParent(parentBeforeDrag, false);
+
+            return;
+        }
         if (newParent != parentBeforeDrag)
         {
             parentBeforeDrag.GetComponent<InventorySlot>().DeleteCurrentItem();

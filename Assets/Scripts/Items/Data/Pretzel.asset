@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Pretzel
   m_EditorClassIdentifier: 
   iconSprite: {fileID: 21300080, guid: 142ff8784e552734f9d6a895491d0ae8, type: 3}
-  price: 0
+  price: 2
