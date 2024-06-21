@@ -6,52 +6,22 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 public class InventoryItemBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 {
-    [SerializeField] int itemsAmount;
-    [SerializeField] TMP_Text countTextBox;
     Image icon;
-    bool itemMaxed;
 
-    [SerializeField] InventoryItem itemData;
-    Transform parentBeforeDrag;
+    [SerializeField] protected InventoryItem itemData;
+    protected Transform parentBeforeDrag;
 
-    public bool ItemMaxed { get => itemMaxed;}
-    public InventoryItem ItemData { get => itemData;}
-    public int ItemsAmount { get => itemsAmount;}
+    public InventoryItem ItemData { get => itemData; }
 
     private void Awake()
     {
         icon = GetComponent<Image>();
         icon.sprite = itemData.IconSprite;
-    }
 
-    private void Start()
-    {
-        itemsAmount = 1;
-        RefreshAmount();
-    }
-
-    public void AddItem(int newAmount)
-    {
-        itemsAmount+= newAmount;
-        itemMaxed = itemsAmount == 5;
-        RefreshAmount();    
-    }
-    public void RemoveItem()
-    {
-        itemsAmount--;
-
-        if (itemsAmount <= 0 )
+        if (transform.parent.TryGetComponent<InventorySlot>(out InventorySlot slot))
         {
-            Destroy(gameObject);
+            parentBeforeDrag = transform.parent;
         }
-        RefreshAmount();
-    }
-
-    public void RefreshAmount()
-    {
-        countTextBox.text = itemsAmount.ToString();
-        bool textBoxActiveState = itemsAmount > 1;
-        countTextBox.gameObject.SetActive(textBoxActiveState);
     }
 
     #region Drag&Drop
@@ -79,12 +49,12 @@ public class InventoryItemBehaviour : MonoBehaviour, IBeginDragHandler, IDragHan
         transform.SetParent(parentBeforeDrag, false);
 
         icon.raycastTarget = true;
-    } 
-    public void OnItemDropped(Transform newParent)
+    }
+    public virtual void OnItemDropped(Transform newParent)
     {
         if (newParent != parentBeforeDrag)
         {
-            parentBeforeDrag.GetComponent<InventorySlots>().RemoveCurrentItem();
+            parentBeforeDrag.GetComponent<InventorySlot>().RemoveCurrentItem();
         }
         parentBeforeDrag = newParent;
         transform.SetParent(parentBeforeDrag, false);

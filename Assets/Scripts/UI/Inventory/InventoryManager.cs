@@ -4,16 +4,60 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    List<InventorySlots> inventorySlots;
+    static InventoryManager instance;
+    public static InventoryManager Instance { get => instance; }
+
+    [SerializeField] List<ClotheSlots> equippmentSlots;
+    [SerializeField] List<InventorySlot> inventorySlots;
+
+    private void Awake()
+    {
+        if (instance != this && instance != null)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
 
     public void AddItem2Inventory(InventoryItemBehaviour newItem)
     {
-        for (int i = 0; i < inventorySlots.Count; i++)
+        foreach (var slot in inventorySlots)
         {
-            bool ConditionB = inventorySlots[i].CurrentItems.ItemData == newItem.ItemData && !inventorySlots[i].CurrentItems.ItemMaxed;
-            if (inventorySlots[i].CurrentItems != null ||  ConditionB)
+            if (slot.CurrentItems == null)
             {
-                inventorySlots[i].AddItem(newItem);
+                slot.AddItem(newItem);
+                break;
+            }
+
+            if (newItem is ConsumableItem)
+            {
+                if (slot.CurrentItems.ItemData == newItem.ItemData && !(slot.CurrentItems as ConsumableItem).ItemMaxed)
+                {
+                    slot.AddItem(newItem);
+                    break;
+                }
+            }
+        }
+    }
+    public void EquipClothe(EquippableItem newClothe)
+    {
+        foreach (var item in equippmentSlots)
+        {
+            if (item.ReceivedType == newClothe.Type)
+            {
+                if (item.CurrentItems == null)
+                {
+                    item.AddItem(newClothe);
+                    break;
+                }
+
+                AddItem2Inventory(item.CurrentItems);
+                item.RemoveCurrentItem();
+                item.AddItem(newClothe);
+                break;
             }
         }
     }
