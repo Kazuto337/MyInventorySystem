@@ -8,10 +8,11 @@ public class InventoryItemBehaviour : MonoBehaviour, IBeginDragHandler, IDragHan
 {
     Image icon;
 
-    [SerializeField] protected InventoryItem itemData;
+    [SerializeField] protected MenuItem itemData;
+    [SerializeField] bool canDrag;
     protected Transform parentBeforeDrag;
 
-    public InventoryItem ItemData { get => itemData; }
+    public MenuItem ItemData { get => itemData; }
 
     private void Awake()
     {
@@ -27,6 +28,10 @@ public class InventoryItemBehaviour : MonoBehaviour, IBeginDragHandler, IDragHan
     #region Drag&Drop
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (!canDrag)
+        {
+            return;
+        }
         Debug.LogWarning("On Beggin Drag " + gameObject.name);
 
         parentBeforeDrag = transform.parent;
@@ -38,12 +43,21 @@ public class InventoryItemBehaviour : MonoBehaviour, IBeginDragHandler, IDragHan
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (!canDrag)
+        {
+            return;
+        }
         Debug.LogWarning("On Drag " + gameObject.name);
         transform.position = Input.mousePosition;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (!canDrag)
+        {
+            return;
+        }
+
         Debug.LogWarning("On End Drag " + gameObject.name);
 
         transform.SetParent(parentBeforeDrag, false);
@@ -54,7 +68,7 @@ public class InventoryItemBehaviour : MonoBehaviour, IBeginDragHandler, IDragHan
     {
         if (newParent != parentBeforeDrag)
         {
-            parentBeforeDrag.GetComponent<InventorySlot>().RemoveCurrentItem();
+            parentBeforeDrag.GetComponent<InventorySlot>().DeleteCurrentItem();
         }
         parentBeforeDrag = newParent;
         transform.SetParent(parentBeforeDrag, false);

@@ -10,6 +10,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] List<ClotheSlots> equippmentSlots;
     [SerializeField] List<InventorySlot> inventorySlots;
 
+    public List<InventorySlot> Slots { get => inventorySlots;}
     private void Awake()
     {
         if (instance != this && instance != null)
@@ -55,8 +56,34 @@ public class InventoryManager : MonoBehaviour
                 }
 
                 AddItem2Inventory(item.CurrentItems);
-                item.RemoveCurrentItem();
+                item.DeleteCurrentItem();
                 item.AddItem(newClothe);
+                break;
+            }
+        }
+    }
+
+    public void RemoveItem(InventoryItemBehaviour item)
+    {
+        if (item is EquippableItem)
+        {
+            foreach (var slot in inventorySlots)
+            {
+                if (slot.CurrentItems == item)
+                {
+                    Destroy(item.gameObject);
+                    break;
+                }
+            }
+
+            return;
+        }
+
+        foreach (var slot in inventorySlots)
+        {
+            if (slot.CurrentItems == item)
+            {
+
                 break;
             }
         }

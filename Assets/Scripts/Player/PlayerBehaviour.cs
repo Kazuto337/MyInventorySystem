@@ -2,14 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class PlayerBehaviour : MonoBehaviour
 {
     [SerializeField] UnityEvent<float> onDamageReceived, onHealingReceived;
     [SerializeField] UnityEvent<int> onCoinsAdded, onCoinsRemoved;
+    [SerializeField] UnityEvent onInventoryOpened;
 
     float healthPoints;
     int coins;
+
+    [SerializeField] InventoryManager inventoryManager;
 
     public float HealthPoints { get => healthPoints; }
     public int Coins { get => coins; }
@@ -18,6 +22,8 @@ public class PlayerBehaviour : MonoBehaviour
     public UnityEvent<float> OnHealingReceived { get => onHealingReceived; }
     public UnityEvent<int> OnCoinsAdded { get => onCoinsAdded; }
     public UnityEvent<int> OnCoinsRemoved { get => onCoinsRemoved; }
+    public UnityEvent OnInventoryOpened { get => onInventoryOpened;}
+    public InventoryManager Inventory { get => inventoryManager;}
 
     private void OnEnable()
     {
@@ -26,6 +32,17 @@ public class PlayerBehaviour : MonoBehaviour
 
         onCoinsAdded.AddListener(AddCoins);
         onCoinsRemoved.AddListener(RemoveCoins);
+    }
+
+    private void Update()
+    {
+    
+    }
+
+    [ContextMenu("Test Inventory")]
+    public void OpenInventory()
+    {
+        OnInventoryOpened.Invoke();
     }
 
     private void Heal(float extraHp)

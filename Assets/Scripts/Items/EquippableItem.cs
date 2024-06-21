@@ -21,7 +21,7 @@ public class EquippableItem : InventoryItemBehaviour
     {
         if (newParent != parentBeforeDrag)
         {
-            parentBeforeDrag.GetComponent<InventorySlot>().RemoveCurrentItem();
+            parentBeforeDrag.GetComponent<InventorySlot>().DeleteCurrentItem();
         }
         parentBeforeDrag = newParent;
         transform.SetParent(parentBeforeDrag, false);
@@ -33,7 +33,7 @@ public class EquippableItem : InventoryItemBehaviour
         InventorySlot parentSlot;
         if (transform.root.TryGetComponent<InventorySlot>(out parentSlot))
         {
-            parentSlot.RemoveCurrentItem();
+            parentSlot.DeleteCurrentItem();
         }
     }
 }

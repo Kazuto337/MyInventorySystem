@@ -5,11 +5,11 @@ using UnityEngine.EventSystems;
 
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
-    InventoryItemBehaviour currentItems;
+    [SerializeField] InventoryItemBehaviour currentItems;
 
     public InventoryItemBehaviour CurrentItems { get => currentItems; }
 
-    private void Start()
+    private void Awake()
     {
         currentItems = GetComponentInChildren<InventoryItemBehaviour>();
     }
@@ -51,7 +51,23 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         return;
     }
 
-    public void RemoveCurrentItem()
+    public void RemoveItem()
+    {
+        if ((currentItems is ConsumableItem) == false)
+        {
+            return;
+        }
+
+        if ((currentItems as ConsumableItem).ItemsAmount > 1)
+        {
+            (currentItems as ConsumableItem).RemoveItem();
+            return;
+        }
+
+        DeleteCurrentItem();
+    }
+
+    public void DeleteCurrentItem()
     {
         currentItems = null;
     }

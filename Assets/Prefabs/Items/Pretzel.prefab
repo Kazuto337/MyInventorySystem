@@ -224,6 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: b1080a757f1972b48962ad3f40ce1953, type: 2}
+  canDrag: 1
   value: 5
   itemsAmount: 0
   countTextBox: {fileID: 699895030562527253}

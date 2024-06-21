@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 [CreateAssetMenu(fileName = "NewMenuDataItem", menuName = "Menu Item", order = 1)]
-public class InventoryItem : ScriptableObject
+public class MenuItem : ScriptableObject
 {
     [SerializeField] Sprite iconSprite;
     [SerializeField] int price;
