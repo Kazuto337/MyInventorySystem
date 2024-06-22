@@ -20,11 +20,11 @@ public class ClotheSlots : InventorySlot
             return;
         }
 
-        base.OnDrop(eventData);
+        (droppedItem as EquippableItem).Use();
     }
     public override void AddItem(InventoryItemBehaviour newItem)
     {
-        if (!(newItem is EquippableItem) && (newItem as EquippableItem).Type != receivedType)
+        if (!(newItem is EquippableItem) || (newItem as EquippableItem).Type != receivedType)
         {
             Debug.LogError("This Slot is for Equippment of type" + receivedType.ToString());
             return;

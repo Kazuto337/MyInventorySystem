@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     Vector2 movementVector;
 
     Animator animator;
+    public List<ClotheBehaviour> clothes;
 
     private void Start()
     {
@@ -30,8 +31,14 @@ public class PlayerMovement : MonoBehaviour
     public void Move()
     {
         movementVector = playerInput.actions["Move"].ReadValue<Vector2>();
+
         animator.SetFloat("horizontalValue", movementVector.x);
         animator.SetFloat("verticalValue", movementVector.y);
+
+        foreach (var item in clothes) 
+        {
+            item.SetAnimationState(movementVector);
+        }
 
         rgbd.position = (rgbd.position + movementVector * movementSpeed * Time.fixedDeltaTime);
     }

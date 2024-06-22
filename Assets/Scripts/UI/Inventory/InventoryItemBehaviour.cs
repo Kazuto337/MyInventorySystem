@@ -47,7 +47,6 @@ public class InventoryItemBehaviour : MonoBehaviour, IBeginDragHandler, IDragHan
         {
             return;
         }
-        Debug.LogWarning("On Drag " + gameObject.name);
         transform.position = Input.mousePosition;
     }
 

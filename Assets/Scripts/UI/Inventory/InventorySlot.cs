@@ -69,6 +69,10 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
     public void DeleteCurrentItem()
     {
+        if (currentItems == null)
+        {
+            return;
+        }
         currentItems = null;
     }
 

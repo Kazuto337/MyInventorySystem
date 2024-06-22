@@ -5,17 +5,17 @@ using UnityEngine;
 public enum EquippmentType
 {
     Hat,
-    Shirt,
-    Pants,
-    Shoes
+    Shirt
 }
 public class EquippableItem : InventoryItemBehaviour
 {
     [SerializeField] EquippmentType type;
     [SerializeField] int value;
+    [SerializeField] GameObject clotheItem;
 
     public EquippmentType Type { get => type; }
     public int Value { get => value; }
+    public GameObject ClotheItem { get => clotheItem; }
 
     public override void OnItemDropped(Transform newParent)
     {
@@ -26,6 +26,13 @@ public class EquippableItem : InventoryItemBehaviour
 
             return;
         }
+
+        if (parentBeforeDrag.TryGetComponent(out ClotheSlots indexClotheSlot))
+        {
+            ClotheBehaviour myClothe = clotheItem.GetComponent<ClotheBehaviour>();
+            InventoryManager.Instance.UnequipClothe(myClothe);
+        }
+
         if (newParent != parentBeforeDrag)
         {
             parentBeforeDrag.GetComponent<InventorySlot>().DeleteCurrentItem();
@@ -38,7 +45,7 @@ public class EquippableItem : InventoryItemBehaviour
         InventoryManager.Instance.EquipClothe(this);
 
         InventorySlot parentSlot;
-        if (transform.root.TryGetComponent<InventorySlot>(out parentSlot))
+        if (transform.root.TryGetComponent(out parentSlot))
         {
             parentSlot.DeleteCurrentItem();
         }
