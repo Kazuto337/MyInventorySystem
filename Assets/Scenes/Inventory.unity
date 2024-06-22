@@ -4019,10 +4019,10 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 584584678}
   - {fileID: 282844157}
   - {fileID: 766024172}
   - {fileID: 722023210}
-  - {fileID: 584584678}
   - {fileID: 243189066}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9702,6 +9702,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onClotheEquipped:
+    m_PersistentCalls:
+      m_Calls: []
+  onClotheRemoved:
     m_PersistentCalls:
       m_Calls: []
   equippmentSlots:
